@@ -18,7 +18,7 @@ public class ActorServlet extends HttpServlet {
 	private Connection conn;
 	private PreparedStatement pstmt;
 	
-	// set up my connection to the db and set up my prepared statement
+	// set up my connection to the db and set up my prepared statements
 	@Override
 	public void init() {
 		
