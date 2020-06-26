@@ -23,7 +23,12 @@ public class ActorServlet extends HttpServlet {
 	@Override
 	public void init() {
 		
-		conn = ConnectionManager.getConnection();
+		try {
+			conn = ConnectionManager.getConnection();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		
 		try {
 			pstmt = conn.prepareStatement("select * from actor where actor_id = ?");
