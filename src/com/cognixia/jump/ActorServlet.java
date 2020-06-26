@@ -1,4 +1,5 @@
 package com.cognixia.jump;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -18,7 +19,7 @@ public class ActorServlet extends HttpServlet {
 	private Connection conn;
 	private PreparedStatement pstmt;
 	
-	// set up my connection to the db and set up my prepared statement
+	// set up my connection to the db and set up my prepared statements
 	@Override
 	public void init() {
 		
@@ -33,7 +34,7 @@ public class ActorServlet extends HttpServlet {
 		}
 		
 	}
-
+	
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 		throws ServletException, IOException {
