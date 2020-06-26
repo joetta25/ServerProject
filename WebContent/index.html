@@ -3,54 +3,40 @@
 <head>
 <meta charset="UTF-8">
 <title>Actor Request</title>
-<<<<<<< HEAD
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 </head>
 <body>
 	<div class="container">
-=======
-
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-
-</head>
-<body>
-
-	<div class="container">
-	
->>>>>>> ec8f92a0c7cfa711c3d4eb5468db2b70f3d2306c
 		<div class="jumbotron jumbotron-fluid">
 			<div class="container">
-				<h1 class="display-4">Server Project</h1>
-				<p class="lead">Please enter ID for the actor below.</p>
+				<h1 class="display-4">Movie Filter</h1>
+				<p class="lead">Request a list of movies to pick from. Fill out our form below!</p>
 			</div>
 		</div>
-<<<<<<< HEAD
 		<form action="FindFilmServlet" method="get">
-			<label>Actor ID</label>&nbsp;&nbsp;
-			<input type="number" id="actor-id" name="actor-id" min="1" max="200">
+  <p>Rating</p>
+  <input type="radio" id="G" name="rating" value="G">
+  <label for="G">G</label><br>
+  <input type="radio" id="PG" name="rating" value="PG">
+  <label for="PG">PG</label><br>
+  <input type="radio" id="PG-13" name="rating" value="PG-13">
+  <label for="PG-13">PG-13</label><br>
+  <input type="radio" id="NC-17" name="rating" value="NC-17">
+  <label for="NC-17">NC-17</label><br>
+  <input type="radio" id="R" name="rating" value="R">
+  <label for="R">R</label><br>
+  <p>Rental Rate</p>
+  <input type="radio" id="0.99" name="rental" value="0.99">
+  <label for="0.99">0.99</label><br>
+  <input type="radio" id="2.99" name="rental" value="2.99">
+  <label for="2.99">2.99</label><br>
+  <input type="radio" id="4.99" name="rental" value="4.99">
+  <label for="4.99">4.99</label><br>
+			<label>ResultFile</label>&nbsp;&nbsp;
+			<input type="number" id="limit" name="limit" min="1" >
 			<br><br>
 			<input type="submit" value="Find" class="btn btn-primary">
 		</form>
 	</div>
 </body>
 </html>
-=======
-		
-		<form action="FindFilmServlet" method="get">
-		
-			<label>Actor ID</label>&nbsp;&nbsp;
-			<input type="number" id="actor-id" name="actor-id" min="1" max="200">
-			
-			<br><br>
-			<input type="submit" value="Find" class="btn btn-primary">
-		
-		</form>
-	
-	
-	</div>
-
-
-
-</body>
-</html>
->>>>>>> ec8f92a0c7cfa711c3d4eb5468db2b70f3d2306c

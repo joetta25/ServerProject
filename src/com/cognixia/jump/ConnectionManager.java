@@ -4,29 +4,38 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class cd {
-
-	public static Connection getConnection () throws SQLException {
-        System.out.println("\n\n***** MySQL JDBC Connection Testing *****");
-		   Connection conn = null;
-        try
-        {
-        	 
-            String userName = "root";
-            String password = "root123#";
-            String url = "jdbc:mysql://localhost:3306/sakila?serverTimezone=EST5EDT";        
-            conn = DriverManager.getConnection (url, userName, password);
-            System.out.println ("\nDatabase Connection Established...");
-        }
-       catch (SQLException ex)
-        {
-    	   
-		       System.err.println ("Cannot connect to database server");
-			   ex.printStackTrace();
-        }      
-		   
-        
-		return conn;
-    }
+public class ConnectionManager {
 	
+	private static final String URL = "jdbc:mysql://localhost:3306/sakila?serverTimezone=EST5EDT"; // ?serverTimezone=EST5EDT
+	private static final String USERNAME = "root";
+	private static final String PASSWORD = "root123#"; // Windows: root, Mac/Linux: Root@123
+	
+	private static Connection conn;
+	
+	private static void makeConnection() {
+		
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			
+			conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public static Connection getConnection() {
+		
+		if(conn == null) {
+			makeConnection();
+		}
+		
+		return conn;
+	}
+
 }

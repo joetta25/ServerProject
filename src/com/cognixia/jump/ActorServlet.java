@@ -6,104 +6,80 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 public class ActorServlet extends HttpServlet {
-
-	private static final long serialVersionUID = 6649592449996130701L;
 	
+	
+	private static final long serialVersionUID = 6649592449996130701L;
 	private Connection conn;
 	private PreparedStatement pstmt;
 	
-	// set up my connection to the db and set up my prepared statements
+	
+	List<String> titleList = new ArrayList<>();
+	// set up my connection to the db and set up my prepared statement
 	@Override
 	public void init() {
-		
+		conn = ConnectionManager.getConnection();
 		try {
-			conn = ConnectionManager.getConnection();
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		
-		try {
-			pstmt = conn.prepareStatement("select * from actor where actor_id = ?");
-			
+			pstmt = conn.prepareStatement("select title from film where rating = ? && rental_rate =? order by title Limit ?");
 		} catch (SQLException e) {
-			
 			e.printStackTrace();
 		}
-		
 	}
+	
+	
 	
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 		throws ServletException, IOException {
-		
 		doGet(request, response);
-		
 	}
+	
+	
 	
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
 		throws ServletException, IOException {
-		
-		int id = Integer.parseInt(request.getParameter("actor-id"));
-		
-		String firstName = null, lastName = null;
-		
+		String rating = request.getParameter("rating");
+		double rental = Double.parseDouble(request.getParameter("rental"));
+		int limit = Integer.parseInt(request.getParameter("limit"));
 		boolean retrieved = false;
-		
 		try {
-			pstmt.setInt(1, id);
-			
+			pstmt.setString(1, rating);
+			pstmt.setDouble(2, rental);
+			pstmt.setInt(3, limit);
 			ResultSet rs = pstmt.executeQuery();
-			
-			if(rs.next()) {
-				firstName = rs.getString("first_name");
-				lastName = rs.getString("last_name");
-				
+			while(rs.next()) {
+				titleList.add(rs.getString("title"));
 				retrieved = true;
 			}
-			
 			rs.close();
-			
 		} catch (SQLException e) {
-			
 			e.printStackTrace();
 		}
-		
-		
-		
 		response.setContentType("text/html");
-		
 		PrintWriter pw = response.getWriter();
-		
-		
 		pw.println("<html>");
-		
 		pw.println("<header><title>Actor</title></header>");
-		
 		pw.println("<body>");
-		
 		if(retrieved) {
-			pw.println("<h1>" + firstName + " " + lastName + "</h1>");
+			for (String tie : titleList) {
+				if(!tie.equals(null)) {
+					pw.println("<h1>" + tie + "</h1>");
+				}
+			}
 		}
 		else {
 			pw.println("<h1>Actor Not Found</h1>");
 		}
-		
 		pw.println("</body>");
-		
 		pw.println("</html>");
-		
-		
 	}
-	
 	
 	
 	
@@ -112,18 +88,11 @@ public class ActorServlet extends HttpServlet {
 	// close connection and prepared statement once finished
 	@Override
 	public void destroy() {
-		
 		try {
 			pstmt.close();
 			conn.close();
-			
 		} catch (SQLException e) {
-			
 			e.printStackTrace();
 		}
-		
 	}
-	
-	
-	
 }
